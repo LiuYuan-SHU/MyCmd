@@ -17,6 +17,8 @@
 
 #include <string>
 #include <memory>
+#include <exception>
+#include <typeinfo>
 
 using std::string;
 using std::shared_ptr;
@@ -52,8 +54,8 @@ public:
 	inline void set_parent(const weak_ptr<Node>& parent) { this->_parent = parent; }
 	inline void set_sibling(const Node& sibling) { set_sibling(make_shared<Node>(sibling)); }
 	inline void set_sibling(const shared_ptr<Node>& sibling) { this->_sibling = sibling; }
-	inline void set_child(const Node& child) { set_child(make_shared<Node>(child)); }
-	inline void set_child(const shared_ptr<Node>& child) { this->_child = child; child->set_parent(*this); }
+	inline void set_child(const Node& child) const { set_child(make_shared<Node>(child)); }
+	void set_child(const shared_ptr<Node>& child) const throw (std::bad_typeid);
 
 	inline const string& get_node_name() const { return this->_node_name; }
 	inline NODE_TYPE get_node_type() const { return this->_node_type; }

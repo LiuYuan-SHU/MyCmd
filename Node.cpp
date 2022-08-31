@@ -12,6 +12,7 @@
 #include <memory>
 #include <sstream>
 #include <iostream>
+#include <typeinfo>
 
 using std::endl;
 using std::ostringstream;
@@ -76,6 +77,16 @@ namespace liuyuan
 #if DEBUG
         std::printf("============================================\n\n");
 #endif
+	}
+
+	void Node::set_child(const shared_ptr<Node>& child) const throw(std::bad_typeid)
+	{
+		if (this->_node_type == liuyuan::FILE) 
+		{
+			throw std::bad_typeid();
+		}
+		this->_child = child;
+		child->set_parent(*this);
 	}
 
 	const string Node::toString()

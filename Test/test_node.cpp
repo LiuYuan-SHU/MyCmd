@@ -8,6 +8,10 @@
 #include "test_node.h"
 #include "../Node.h"
 #include <exception>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <typeinfo>
 #include <utility>
 
 using std::exception;
@@ -17,7 +21,7 @@ namespace liuyuan
 namespace test
 {
 
-pair<TEST_STATUS, string> test_CST_DST_setters()
+TEST_INFO test_CST_DST_setters()
 {
     try
     {
@@ -32,6 +36,36 @@ pair<TEST_STATUS, string> test_CST_DST_setters()
     return make_pair(SUCCESS, "");
 }
 
+TEST_INFO test_const_node()
+{
+	try
+	{
+		shared_ptr<const Node> root(new Node("root", nullptr, liuyuan::DIR));
+		root->set_child(make_shared<Node>("child"));
+		std::cout << "child add for const root successfully" << std::endl;
+		// root->set_sibling(make_shared<Node>("sibling"));
+		std::cout << "sibling add for const root successfully" << std::endl;
+	}
+	catch (exception e)
+	{
+		return make_pair(FAIL, e.what());
+	}
+	return make_pair(SUCCESS, "");
 }
 
+TEST_INFO test_insert_child_for_file_node()
+{
+	try
+	{
+		shared_ptr<Node> file_node(new Node("file"));
+		file_node->set_child(make_shared<Node>("illegal child"));
+	}
+	catch (std::bad_typeid e)
+	{
+		return make_pair(FAIL, e.what());
+	}
+	return make_pair(SUCCESS, "");
+}
+
+}
 }
