@@ -29,8 +29,8 @@ namespace liuyuan
 {
 
 typedef bool NODE_TYPE;
-constexpr bool FILE = true;
-constexpr bool DIR = false;
+constexpr bool F = true;
+constexpr bool D = false;
 
 class Node
 {
@@ -43,8 +43,8 @@ private:
     shared_ptr<Node> _sibling;
     mutable shared_ptr<Node> _child;
 public:
-    Node(const string& node_name, const shared_ptr<Node>& parent = nullptr, NODE_TYPE node_type = liuyuan::FILE);
-    Node(const string& node_name, const Node& parent, NODE_TYPE node_type = liuyuan::FILE);
+    Node(const string& node_name, const shared_ptr<Node>& parent = nullptr, NODE_TYPE node_type = liuyuan::F);
+    Node(const string& node_name, const Node& parent, NODE_TYPE node_type = liuyuan::F);
 	Node(const Node& other);
 	~Node();
 

@@ -81,7 +81,7 @@ namespace liuyuan
 
 	void Node::set_child(const shared_ptr<Node>& child) const throw(std::bad_typeid)
 	{
-		if (this->_node_type == liuyuan::FILE) 
+		if (this->_node_type == liuyuan::F) 
 		{
 			throw std::bad_typeid();
 		}
