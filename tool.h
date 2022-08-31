@@ -1,8 +1,10 @@
 #ifndef _TOOL_
 #define _TOOL_
 
+#include <stdexcept>
 #include <string>
 #include <ctime>
+#include <vector>
 
 using std::string;
 using std::time_t;
@@ -17,6 +19,7 @@ namespace liuyuan
 		return string(ctime(&cur_time));
 	}
 
+	std::vector<std::string> divide_path(const std::string& path) throw(std::invalid_argument, std::out_of_range);
 }
 
 #endif
