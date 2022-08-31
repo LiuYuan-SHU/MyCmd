@@ -1,29 +1,34 @@
 make_cmd = g++ -c -Wall -std=c++11
-objects = main.o Node.o
-objects_debug = main_debug.o Node_debug.o test_node.o
+objects = main.o Node.o NodeTree.o tool.o
 
-edit : $(objects)	
-	g++ -o MyCmd $(objects)
-	-./MyCmd
+edit : $(objects)
+	g++ -o MyCmd $(objects) -Wall -std=c++11
 
 main.o : main.cpp 
 	$(make_cmd) main.cpp
 
-main_debug.o : main.cpp
-	$(make_cmd) -DDEBUG=1 main.cpp -o main_debug.o -g
-
-Node.o : Node.cpp Node.h tool.h global.h
+Node.o : Node.cpp Node.h tool.h tool.cpp global.h
 	$(make_cmd) Node.cpp
 
-Node_debug.o : Node.cpp Node.h tool.h global.h
-	$(make_cmd) -DDEBUG=1 Node.cpp -o Node_debug.o -g
+NodeTree.o : NodeTree.cpp NodeTree.h Node.cpp Node.h tool.h tool.cpp global.h
+	$(make_cmd) NodeTree.cpp
 
-test_node.o : ./Test/test_node.cpp Node.cpp ./Test/test_node.h Node.h
-	$(make_cmd) ./Test/test_node.cpp -DDEBUG=1 -g
-
-debug : $(objects_debug)
-	g++ -o MyCmd_debug $(objects_debug) -DDEBUG=1 -g
-	-./MyCmd_debug
+tool.o : tool.h
+	$(make_cmd) tool.cpp
 
 clean:
-	-rm $(objects) $(objects_debug)
+	-rm *.o
+
+debug_all:
+	g++ -Wall -o MyCmd_debug *.cpp ./Test/*.cpp -DDEBUG=1 -DTEST_NODE -DTEST_TREE -DTEST_TOOL -std=c++11
+
+debug_node:
+	g++ -Wall -o MyCmd_debug_node *.cpp ./Test/test_node.cpp -DDEBUG=1 -DTEST_NODE -std=c++11
+
+debug_tree:
+	g++ -Wall -o MyCmd_debug_tree *.cpp ./Test/test_node_tree.cpp -DDEBUG=1 -DTEST_TREE -std=c++11
+
+debug_tool:
+	g++ -Wall -o MyCmd_debug_tool *.cpp ./Test/test_tool.cpp -DDEBUG=1 -DTEST_TOOL -std=c++11
+
+
