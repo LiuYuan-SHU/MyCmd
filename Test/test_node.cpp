@@ -5,16 +5,16 @@
 //  Created by Liu Yuan on 2022/8/31.
 //
 
+#include "test_global.h"
 #include "test_node.h"
 #include "../Node.h"
 #include <exception>
 #include <iostream>
 #include <memory>
-#include <string>
-#include <typeinfo>
 #include <utility>
 
 using std::exception;
+using std::make_pair;
 
 namespace liuyuan
 {
@@ -25,9 +25,9 @@ TEST_INFO test_CST_DST_setters()
 {
     try
     {
-        std::unique_ptr<Node> root(new Node("root", nullptr, DIR));
+        std::unique_ptr<Node> root(new Node("root", nullptr, D));
         root->set_sibling(make_shared<Node>("sibling"));
-        root->set_child(make_shared<Node>("child", *root, liuyuan::FILE));
+        root->set_child(make_shared<Node>("child", *root, liuyuan::F));
     }
     catch (exception e)
     {
@@ -40,7 +40,7 @@ TEST_INFO test_const_node()
 {
 	try
 	{
-		shared_ptr<const Node> root(new Node("root", nullptr, liuyuan::DIR));
+		shared_ptr<const Node> root(new Node("root", nullptr, liuyuan::D));
 		root->set_child(make_shared<Node>("child"));
 		std::cout << "child add for const root successfully" << std::endl;
 		// root->set_sibling(make_shared<Node>("sibling"));
