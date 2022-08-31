@@ -10,19 +10,19 @@ main.o : main.cpp
 	$(make_cmd) main.cpp
 
 main_debug.o : main.cpp
-	$(make_cmd) -DDEBUG=1 main.cpp -o main_debug.o
+	$(make_cmd) -DDEBUG=1 main.cpp -o main_debug.o -g
 
 Node.o : Node.cpp Node.h tool.h global.h
 	$(make_cmd) Node.cpp
 
 Node_debug.o : Node.cpp Node.h tool.h global.h
-	$(make_cmd) -DDEBUG=1 Node.cpp -o Node_debug.o
+	$(make_cmd) -DDEBUG=1 Node.cpp -o Node_debug.o -g
 
 test_node.o : ./Test/test_node.cpp Node.cpp ./Test/test_node.h Node.h
-	$(make_cmd) ./Test/test_node.cpp -DDEBUG=1
+	$(make_cmd) ./Test/test_node.cpp -DDEBUG=1 -g
 
 debug : $(objects_debug)
-	g++ -o MyCmd_debug $(objects_debug) -DDEBUG=1
+	g++ -o MyCmd_debug $(objects_debug) -DDEBUG=1 -g
 	-./MyCmd_debug
 
 clean:
