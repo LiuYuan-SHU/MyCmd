@@ -1,10 +1,6 @@
 
 *.xcuserstate
-MyCmd.xcodeproj/project.xcworkspace/contents.xcworkspacedata
-MyCmd.xcodeproj/project.pbxproj
-MyCmd.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-MyCmd.xcodeproj/xcuserdata/liuyuan.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-MyCmd.xcodeproj/xcuserdata/liuyuan.xcuserdatad/xcschemes/xcschememanagement.plist
+MyCmd.xcodeproj
 to-do list.md
 MyCmd
 MyCmd_debug
