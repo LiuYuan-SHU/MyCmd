@@ -89,6 +89,24 @@ namespace liuyuan
 		child->set_parent(*this);
 	}
 
+	shared_ptr<Node> Node::find_sibling(const string& node_name) const
+	{
+		shared_ptr<Node> ite = this->_sibling;
+		while (ite)
+		{
+			if (ite->get_node_name() == node_name) { return ite; }
+			else { ite = ite->get_sibling(); }
+		}
+		return make_shared<Node>(nullptr);
+	}
+
+	shared_ptr<Node> Node::find_child(const string &node_name) const
+	{
+		if (this->_node_type == liuyuan::F) { return make_shared<Node>(nullptr); }
+		if (this->_child == nullptr) { return make_shared<Node>(nullptr); }
+		return this->_child->find_sibling(node_name);
+	}
+
 	const string Node::toString()
 	{
 		ostringstream buffer;

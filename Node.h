@@ -65,6 +65,8 @@ public:
 	inline const shared_ptr<Node> get_sibling() const { return this->_sibling; }
 	inline const shared_ptr<Node> get_child() const { return this->_child; }
 
+	shared_ptr<Node> find_sibling(const string& node_name) const;
+	shared_ptr<Node> find_child(const string& node_name) const;
 	const string toString();
 };
 
