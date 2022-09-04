@@ -15,6 +15,7 @@
 #ifndef _NODE_
 #define _NODE_
 
+#include <stdexcept>
 #include <string>
 #include <memory>
 #include <exception>
@@ -32,14 +33,14 @@ typedef bool NODE_TYPE;
 constexpr bool F = true;
 constexpr bool D = false;
 
-class Node
+class Node : std::enable_shared_from_this<Node>
 {
 private:
     mutable string _node_name;
     NODE_TYPE _node_type;
     string _create_date;
     string _create_user;
-    weak_ptr<Node> _parent;
+    shared_ptr<Node> _parent;
     shared_ptr<Node> _sibling;
     mutable shared_ptr<Node> _child;
 public:
@@ -50,8 +51,7 @@ public:
 
 	inline void set_node_name(const string& node_name) { this->_node_name = node_name; }
 	inline void set_parent(const Node& parent) { set_parent(make_shared<Node>(parent)); }
-	inline void set_parent(const shared_ptr<Node>& parent) {this->_parent = parent; }
-	inline void set_parent(const weak_ptr<Node>& parent) { this->_parent = parent; }
+	inline void set_parent(const shared_ptr<Node>& parent) { this->_parent = parent; }
 	inline void set_sibling(const Node& sibling) { set_sibling(make_shared<Node>(sibling)); }
 	inline void set_sibling(const shared_ptr<Node>& sibling) { this->_sibling = sibling; }
 	inline void set_child(const Node& child) const { set_child(make_shared<Node>(child)); }
@@ -64,9 +64,9 @@ public:
 	inline const weak_ptr<Node> get_parent() const { return this->_parent;  }
 	inline const shared_ptr<Node> get_sibling() const { return this->_sibling; }
 	inline const shared_ptr<Node> get_child() const { return this->_child; }
+	shared_ptr<Node> get_node(const string& child_name, NODE_TYPE node_type = liuyuan::D) const;
 
-	shared_ptr<Node> find_sibling(const string& node_name) const;
-	shared_ptr<Node> find_child(const string& node_name) const;
+	shared_ptr<Node> change_node(const string& node_name, NODE_TYPE node_type = liuyuan::D) throw(std::invalid_argument);
 	const string toString();
 };
 

@@ -22,24 +22,5 @@ namespace liuyuan
 	{
 	}
 
-	shared_ptr<Node> NodeTree::change_dir(const std::string &path) throw(std::invalid_argument, std::out_of_range)
-	{
-		std::vector<string> node_name = liuyuan::divide_path(path);
-		string first_node = node_name.at(0);
-		weak_ptr<Node> ite;
-		if (first_node == "root")
-		{
-		}
-		else if (first_node == ".")
-		{
-		}
-		else
-		{
-			std::ostringstream buffer;
-			buffer << "wrong node name in " << __func__ << "with name " << first_node << std::endl;
-			throw std::invalid_argument(buffer.str());
-		}
-
-		return ite.lock();
-	}
 }
+	

@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <string>
 #include <exception>
+#include <vector>
 
 using namespace liuyuan;
 
@@ -33,11 +34,6 @@ public:
 	inline shared_ptr<Node> get_cur_node() const { return _cur_node.lock(); }
 	
 	inline void set_cur_node(const shared_ptr<Node>& new_node) { this->_cur_node = new_node; }
-
-	// change _cur_node to the node specified by path
-	// if the node doen's exist, throw invalid_argument exception
-	// otherwise set _cur_node to the node and return the node as a shared_ptr
-	shared_ptr<Node> change_dir(const std::string& path) throw(std::invalid_argument, std::out_of_range);	
 };
 
 }

@@ -12,6 +12,7 @@
 #include <memory>
 #include <sstream>
 #include <iostream>
+#include <stdexcept>
 #include <typeinfo>
 
 using std::endl;
@@ -89,22 +90,30 @@ namespace liuyuan
 		child->set_parent(*this);
 	}
 
-	shared_ptr<Node> Node::find_sibling(const string& node_name) const
+	shared_ptr<Node> Node::get_node(const string& child_name, NODE_TYPE node_type) const
 	{
-		shared_ptr<Node> ite = this->_sibling;
+		shared_ptr<Node> ite = this->get_child();
 		while (ite)
 		{
-			if (ite->get_node_name() == node_name) { return ite; }
-			else { ite = ite->get_sibling(); }
+			if (ite->get_node_name() == child_name && node_type == ite->get_node_type()) { return ite; }
+			ite = ite->get_sibling();
 		}
 		return make_shared<Node>(nullptr);
 	}
 
-	shared_ptr<Node> Node::find_child(const string &node_name) const
+	shared_ptr<Node> Node::change_node(const string &node_name, NODE_TYPE node_type) throw(std::invalid_argument)
 	{
-		if (this->_node_type == liuyuan::F) { return make_shared<Node>(nullptr); }
-		if (this->_child == nullptr) { return make_shared<Node>(nullptr); }
-		return this->_child->find_sibling(node_name);
+		if (node_name == ".") { return shared_from_this(); }
+		else if (node_name == "..") { return (this->_parent ? this->_parent : throw std::invalid_argument("invalid directory ..")); }
+		
+		shared_ptr<Node> child = this->get_node(node_name, node_type);	
+		if (child) { return child; }
+		else 
+		{
+			ostringstream buffer;
+			buffer << "so such node " << node_name << " with node type " << (node_type ? "FILE" : "DIR");
+			throw std::invalid_argument(buffer.str());
+		}
 	}
 
 	const string Node::toString()

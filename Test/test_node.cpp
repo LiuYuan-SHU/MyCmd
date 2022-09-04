@@ -67,5 +67,18 @@ TEST_INFO test_insert_child_for_file_node()
 	return make_pair(SUCCESS, "");
 }
 
+TEST_INFO test_change_node()
+{
+		shared_ptr<Node> root(new Node("root", nullptr, liuyuan::D));
+		root->set_child(shared_ptr<Node>(new Node("child1", nullptr, liuyuan::D)));
+		root->get_child()->set_child(shared_ptr<Node>(new Node("child2")));
+
+		auto child1 = root->get_child();
+		std::cout << child1->change_node("..")->toString() << std::endl;
+		std::cout << child1->change_node(".")->toString() << std::endl;
+		std::cout << child1->change_node("child2")->toString() << std::endl;
+		return make_pair(SUCCESS, "");
+}
+
 }
 }

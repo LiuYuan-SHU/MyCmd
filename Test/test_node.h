@@ -27,10 +27,14 @@ TEST_INFO test_const_node();
 // 测试本函数，应当抛出异常，即TEST_INFO.first应当为FAIL
 TEST_INFO test_insert_child_for_file_node();
 
+// 测试Node节点的find_child change_node函数
+TEST_INFO test_change_node();
+
 // 测试函数数组
 constexpr TEST_INFO (*test_arr_node[])() = {	
-												test_CST_DST_setters,
-												test_const_node
+												// test_CST_DST_setters,
+												// test_const_node,
+												test_change_node
 											};
 
 }
